@@ -42,6 +42,7 @@ if len(sys.argv) > 3:
 DATA_FILE = DAY_LOG_PATH + '/applog_' + DT + '.log'
 
 threads = []
+t = threading
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, myhandle)
