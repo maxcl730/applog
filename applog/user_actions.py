@@ -1,7 +1,7 @@
 # coding=utf-8
 # __author__ = 'chengliang'
 import sys
-# from pprint import pprint
+from pprint import pprint
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -28,18 +28,22 @@ class UserInfo:
                         'market': 'AppStore',
                         }
 
-    def __init__(self, **actions_dict):
+    def __init__(self, actions_dict = dict()):
         for json_data_key in self.__json_data_info:
             if json_data_key in actions_dict.keys():
                 exec('self.'+self.__json_data_info[json_data_key]+'="'+actions_dict[json_data_key]+'"')
 
-    def __repr__(self):
-        user_info = '<User info [AppName:%r, Uuid:%r, IPAdd:%r, AppEdition:%r, AccessType:%r, PassportId:%r,' \
-                    ' MobType:%r, MobOS:%r, AppStore:%r, GeoLoc:%r]>]' % (self.AppName, self.Uuid, self.IPAdd,
-                                                                          self.AppEdition, self.AccessType,
-                                                                          self.PassportId, self.MobType, self.MobOS,
-                                                                          self.AppStore, self.GeoLoc)
-        return user_info
+    def infoFormat(self):
+        format_info = ''
+        for key in sorted(self.__json_data_info):
+            format_info += "'" + eval('self.'+self.__json_data_info[key]) + "',"
+        return format_info[:-1]
+
+    def infoHeader(self):
+        info_header = ''
+        for key in sorted(self.__json_data_info):
+            info_header += self.__json_data_info[key] + ','
+        return info_header[:-1]
 
 
 class UserActions(UserInfo):
@@ -54,25 +58,37 @@ class UserActions(UserInfo):
                           'value': 'Value'
                           }
 
-    def __init__(self, **actions_dict):
-        UserInfo.__init__(self, **actions_dict)
+    def __init__(self, actions_dict = dict()):
+        UserInfo.__init__(self, actions_dict)
+        self.Actions = list()
         if self.__action_tag in actions_dict.keys():
             for action_dict in actions_dict[self.__action_tag]:
                 for action_key in action_dict:
                     self.__action[self.__json_data_action[action_key]] = action_dict[action_key]
                 self.Actions.append(self.__action)
+                self.__action = dict()
 
-    def __repr__(self):
-        user_info = '\n<User info \n[AppName:%r, Uuid:%r, IPAdd:%r, AppEdition:%r, AccessType:%r, PassportId:%r, ' \
-                    'MobType:%r, MobOS:%r, AppStore:%r, GeoLoc:%r]>' % (self.AppName, self.Uuid, self.IPAdd,
-                                                                        self.AppEdition, self.AccessType,
-                                                                        self.PassportId, self.MobType, self.MobOS,
-                                                                        self.AppStore, self.GeoLoc)
-        user_actions = '\n<User actions \n'
+    def actionsFormat(self):
+        format_actions_list = list()
+        format_info = UserInfo.infoFormat(self)
         for action in self.Actions:
-            user_actions += '['
-            for action_key in sorted(action):
-                user_actions = user_actions + action_key + ":'" + action[action_key] + "',"
-            user_actions += ']\n'
-        user_actions += '>'
-        return user_info+user_actions
+            user_actions = ''
+            for action_key in sorted(self.__json_data_action):
+                if self.__json_data_action[action_key] in action:
+                    if action_key == 'clientTime':
+                        user_actions += action[self.__json_data_action[action_key]] + ","
+                    else:
+                        user_actions += "'" + action[self.__json_data_action[action_key]].decode() + "',"
+                else:
+                    if action_key == 'clientTime':
+                        user_actions += ","
+                    else:
+                        user_actions += "'',"
+            format_actions_list.append(format_info + ',' + user_actions[:-1])
+        return format_actions_list
+
+    def actionHeader(self):
+        action_header = UserInfo.infoHeader(self) + ','
+        for key in sorted(self.__json_data_action):
+            action_header += self.__json_data_action[key] + ','
+        return action_header[:-1]

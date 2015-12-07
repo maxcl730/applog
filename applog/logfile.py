@@ -10,6 +10,8 @@ def list_logfiles(log_path, log_date=None):
     file_list = list()
     for parent, dirnames, filenames in os.walk(log_path):
         for filename in filenames:
+            if filename[-4:] != '.txt':
+                continue
             file_time = int(filename[-14:-4])
             if log_date is None:
                 file_list.append(os.path.join(parent, filename))
@@ -34,3 +36,6 @@ def timestamp_datetime(value):
     value = time.localtime(value)
     dt = time.strftime(dt_format, value)
     return dt
+
+
+

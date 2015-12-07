@@ -4,12 +4,20 @@ import pymysql
 
 
 def db_conn():
-    conn = pymysql.connect(host='192.168.1.245', port=3306, user='ipad', passwd='Zaq1xsw@', db='app_action')
-    cur = conn.cursor()
-    cur.execute("desc app_user_behavior")
-    #cur.execute("insert")
-    #conn.commit()
-    for r in cur:
-        print(r)
-    cur.close()
+    conn = pymysql.connect(host='192.168.1.245', port=3306, user='ipad', passwd='Zaq1xsw@', db='app_action',charset='utf8')
+    return conn
+
+
+def db_InsertData(conn,header,values):
+    try:
+        with conn.cursor() as cur:
+            sql = "INSERT INTO app_user_behavior(" + header + ") VALUES (" + values + ")"
+            #print(sql)
+            cur.execute(sql)
+        conn.commit()
+    finally:
+        cur.close()
+
+
+def db_close(conn):
     conn.close()
