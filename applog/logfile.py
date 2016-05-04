@@ -12,7 +12,13 @@ def list_logfiles(log_path, log_date=None):
         for filename in filenames:
             if filename[-4:] != '.txt':
                 continue
-            file_time = int(filename[-14:-4])
+            print 'processing: ' + log_path + '/' + filename
+            try:
+                file_time = int(filename[-14:-4])
+            except ValueError:
+                os.remove(log_path + '/'  + filename)
+                continue
+
             if log_date is None:
                 file_list.append(os.path.join(parent, filename))
             elif starTime <= file_time <= endTime :
