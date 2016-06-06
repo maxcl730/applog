@@ -33,12 +33,12 @@ def process_applog(log_file,fp):
     db.db_close(dbconn)
     fp.flush()
 
-LOG_PATH = '/Users/chengliang/Documents/work/dev/test/log'
-DAY_LOG_PATH = LOG_PATH + '/day'
 DT = sys.argv[1]
+LOG_PATH = '/Users/chengliang/Documents/work/dev/test/log'
 DB_OPT = sys.argv[2]
 if len(sys.argv) > 3:
     LOG_PATH = sys.argv[3]
+DAY_LOG_PATH = LOG_PATH + '/day'
 DATA_FILE = DAY_LOG_PATH + '/applog_' + DT + '.log'
 
 threads = []
