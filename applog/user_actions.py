@@ -74,7 +74,6 @@ class UserActions(UserInfo):
                     self.__action[self.__json_data_action[action_key]] = action_dict[action_key]
                 self.Actions.append(self.__action)
                 self.__action = dict()
-        return True
 
     def actionsFormat(self):
         format_actions_list = list()
