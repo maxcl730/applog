@@ -37,7 +37,7 @@ class UserInfo:
     def checkAvailable(self):
         if self.__json_data_info['appName'].upper() + '|' + self.__json_data_info['appVersion'].upper() in APP_VERSIONS:
             return True
-        else
+        else:
             return False
 
     def infoFormat(self):
