@@ -1,6 +1,7 @@
 # coding=utf-8
 # __author__ = 'chengliang'
 import sys
+from applog import APP_VERSIONS
 from pprint import pprint
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -33,6 +34,12 @@ class UserInfo:
             if json_data_key in actions_dict.keys():
                 exec('self.'+self.__json_data_info[json_data_key]+'="'+actions_dict[json_data_key]+'"')
 
+    def checkAvailable(self):
+        if self.__json_data_info['appName'].upper() + '|' + self.__json_data_info['appVersion'].upper() in APP_VERSIONS:
+            return True
+        else
+            return False
+
     def infoFormat(self):
         format_info = ''
         for key in sorted(self.__json_data_info):
@@ -59,7 +66,7 @@ class UserActions(UserInfo):
                           }
 
     def __init__(self, actions_dict = dict()):
-        UserInfo.__init__(self, actions_dict)
+        UserInfo.__init__(self, actions_dict):
         self.Actions = list()
         if self.__action_tag in actions_dict.keys():
             for action_dict in actions_dict[self.__action_tag]:
@@ -67,6 +74,7 @@ class UserActions(UserInfo):
                     self.__action[self.__json_data_action[action_key]] = action_dict[action_key]
                 self.Actions.append(self.__action)
                 self.__action = dict()
+        return True
 
     def actionsFormat(self):
         format_actions_list = list()
