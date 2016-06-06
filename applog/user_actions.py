@@ -66,7 +66,7 @@ class UserActions(UserInfo):
                           }
 
     def __init__(self, actions_dict = dict()):
-        UserInfo.__init__(self, actions_dict):
+        UserInfo.__init__(self, actions_dict)
         self.Actions = list()
         if self.__action_tag in actions_dict.keys():
             for action_dict in actions_dict[self.__action_tag]:
