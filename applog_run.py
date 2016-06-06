@@ -36,7 +36,7 @@ def process_applog(log_file,fp):
 DT = sys.argv[1]
 LOG_PATH = '/Users/chengliang/Documents/work/dev/test/log'
 DB_OPT = sys.argv[2]
-if len(sys.argv) > 3:
+if len(sys.argv) > 2:
     LOG_PATH = sys.argv[3]
 DAY_LOG_PATH = LOG_PATH + '/day'
 DATA_FILE = DAY_LOG_PATH + '/applog_' + DT + '.log'
