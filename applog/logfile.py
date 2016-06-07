@@ -12,7 +12,7 @@ def list_logfiles(log_path, log_date=None):
         for filename in filenames:
             if filename[-4:] != '.txt':
                 continue
-            print 'processing: ' + parent + dirnames + '/' + filename
+            print 'processing: ' + parent + '/' + filename
             try:
                 file_time = int(filename[-14:-4])
             except ValueError:
