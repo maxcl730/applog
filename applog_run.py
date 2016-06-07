@@ -54,8 +54,13 @@ if __name__ == "__main__":
         os.mkdir(DAY_LOG_PATH)
     userActions = user_actions.UserActions()
     action_Header = userActions.actionHeader()
-    fp = open(DATA_FILE, 'w')
-    fp.write(action_Header +'\n')
+    if os.path.exists(DATA_FILE):
+        need_Header = True
+    else:
+        need_Header = False
+    fp = open(DATA_FILE, 'a')
+    if need_Header:
+        fp.write(action_Header +'\n')
     print(int(time.time()))
     for log_file in logfile.list_logfiles(LOG_PATH, DT):
         #print(log_file)
