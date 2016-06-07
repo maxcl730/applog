@@ -14,7 +14,7 @@ import time
 def exec_shell_SQL_LoadData(data_file, header):
     proc = subprocess.Popen(["/bin/sh" + os.getcwd() + "/sql.sh " + data_file + header ], shell = True, stdout = subprocess.PIPE)
     script_response = proc.stdout.read()
-    print("Shell_subprocess: " + script_response)
+    print("Shell_subprocess load data: " + script_response)
 
 
 def myhandle(signalNun, currentStackFrame):
@@ -31,6 +31,7 @@ def process_applog(log_file,fp):
     for action_line in userActions_obj.actionsFormat():
         fp.write(action_line+'\n')
         if DB_OPT == 'insert':
+            print("insert data: " + action_line)
             db.db_InsertData(dbconn,action_Header, action_line)
     db.db_close(dbconn)
     fp.flush()
