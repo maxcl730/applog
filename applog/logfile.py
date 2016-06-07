@@ -30,6 +30,9 @@ def load_logfile(filename):
     s = json.load(file(filename))
     return s
 
+def logfile_rename(filename):
+    suffix = '.old'
+    os.rename(filename, filename + suffix)
 
 def datetime_timestamp(dt):
     time.strptime(dt, '%Y-%m-%d %H:%M:%S')
