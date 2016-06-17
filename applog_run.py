@@ -55,9 +55,9 @@ if __name__ == "__main__":
     userActions = user_actions.UserActions()
     action_Header = userActions.actionHeader()
     if os.path.exists(DATA_FILE):
-        need_Header = True
-    else:
         need_Header = False
+    else:
+        need_Header = True
     fp = open(DATA_FILE, 'a')
     if need_Header:
         fp.write(action_Header +'\n')
