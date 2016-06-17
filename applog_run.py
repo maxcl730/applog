@@ -25,7 +25,7 @@ def myhandle(signalNun, currentStackFrame):
 def process_applog(log_file,fp):
     log_dict = logfile.load_logfile(log_file)
     userActions_obj = user_actions.UserActions(log_dict)
-    if userActions_obj.checkAvailable():
+    if not userActions_obj.checkAvailable():
         return False
     dbconn = db.db_conn()
     for action_line in userActions_obj.actionsFormat():
