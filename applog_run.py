@@ -63,7 +63,7 @@ if __name__ == "__main__":
         fp.write(action_Header +'\n')
     print(int(time.time()))
     for log_file in logfile.list_logfiles(LOG_PATH, DT):
-        #print(log_file)
+        print 'processing: ' + log_file
         threads.append(threading.Thread(target=process_applog, args=(log_file, fp)))
         if len(threads) >= 5:
             for t in threads:
