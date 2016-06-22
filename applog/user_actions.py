@@ -35,7 +35,7 @@ class UserInfo:
                 exec('self.'+self.__json_data_info[json_data_key]+'="'+actions_dict[json_data_key]+'"')
 
     def checkAvailable(self):
-        if self.__json_data_info['appName'].upper() + '|' + self.__json_data_info['appVersion'].upper() in APP_VERSIONS:
+        if self.AppName.upper() + '|' + self.AppEdition.upper() in APP_VERSIONS:
             return True
         else:
             return False
